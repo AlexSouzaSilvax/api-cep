@@ -20,7 +20,7 @@ Desafio técnico para vaga FullStack Jr na Solution TI.
 
 ## Metodologia de Desenvolvimento
 
-Estamos utilizando metodologias ágeis para o desenvolvimento dessa api, especificamente o Kanban. Você pode acompanhar o progresso do projeto no nosso quadro do Trello: [Fincon Trello Board](https://trello.com/b/3O8SKX6c/solution).
+Estamos utilizando metodologias ágeis para o desenvolvimento dessa api, especificamente o Kanban. Você pode acompanhar o progresso do projeto no nosso quadro do Trello: [Solution Trello Board](https://trello.com/b/3O8SKX6c/solution).
 
 ## Funcionalidades
 
