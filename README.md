@@ -31,7 +31,7 @@ Estamos utilizando metodologias ágeis para o desenvolvimento dessa api, especif
 
 ## Documentação da API
 
-A documentação da API está disponível através do Swagger na seguinte URL: `https://api-cep-6e3z.onrender.com/swagger-ui.html`
+A documentação da API está disponível através do Swagger na seguinte URL: (https://api-cep-6e3z.onrender.com/swagger-ui.html)
 
 ## Executar o Projeto
 
