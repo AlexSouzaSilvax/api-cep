@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 public class EnderecoViaCepService {
 
-    private ApiViaCepService apiViaCepService;
+    private final ApiViaCepService apiViaCepService;
 
     public Mono<EnderecoViaCep> findByCep(String cep) {
         if(isValidCEP(cep)) {

@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UsuariosService {
 
-    private UsuariosRepository usuariosRepository;
+    private final UsuariosRepository usuariosRepository;
 
     @Transactional
     public Usuarios saveOrUpdate(Usuarios usuario) {
