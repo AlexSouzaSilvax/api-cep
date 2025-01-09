@@ -15,6 +15,7 @@ import com.api.cep.entity.Usuarios;
 import com.api.cep.service.UsuariosService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -31,7 +32,7 @@ public class UsuariosController {
     }
 
     @PostMapping("save")
-    public ResponseEntity<Object> saveOrUpdate(@RequestBody Usuarios usuario) {
+    public ResponseEntity<Object> saveOrUpdate(@Valid @RequestBody Usuarios usuario) {
         usuariosService.saveOrUpdate(usuario);
         return ResponseEntity.noContent().build();
     }

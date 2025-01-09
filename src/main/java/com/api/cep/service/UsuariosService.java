@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.api.cep.entity.Usuarios;
 import com.api.cep.repository.UsuariosRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
@@ -15,20 +16,41 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UsuariosService {
 
-    private UsuariosRepository usuariosRepository;
+    private final UsuariosRepository usuariosRepository;
 
     @Transactional
+    @SuppressWarnings("UseSpecificCatch")
     public Usuarios saveOrUpdate(Usuarios usuario) {
 
-        if (usuario.getId() != null) {
-            usuario.setDataAtualizacao(LocalDateTime.now());
-        } else {
-            usuario.setDataCriacao(LocalDateTime.now());
+        String msgAcaoMetodo = "";
+
+        try {
+
+            if (usuario.getId() != null) {
+
+                msgAcaoMetodo = "atualizar";
+
+                boolean exists = usuariosRepository.existsById(usuario.getId());
+
+                if (!exists) {
+                    throw new EntityNotFoundException("Usuário não existente: " + usuario.getId());
+                }
+
+                usuario.setDataAtualizacao(LocalDateTime.now());
+
+            } else {
+
+                msgAcaoMetodo = "salvar";
+
+                usuario.setDataCriacao(LocalDateTime.now());
+            }
+
+            return usuariosRepository.save(usuario);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao " + msgAcaoMetodo + " o usuário. " + e.getMessage(), e);
         }
 
-        usuariosRepository.save(usuario);
-
-        return usuario;
     }
 
     public List<Usuarios> findAll() {
@@ -38,7 +60,7 @@ public class UsuariosService {
     @Transactional
     public void delete(Long id) {
         if (!usuariosRepository.existsById(id)) {
-            throw new IllegalArgumentException("Usuário não encontrado: " + id);
+            throw new IllegalArgumentException("Usuário não existente: " + id);
         }
         usuariosRepository.deleteById(id);
     }
