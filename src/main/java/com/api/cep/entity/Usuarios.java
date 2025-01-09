@@ -46,4 +46,6 @@ public class Usuarios {
 
 	@Column(name = "data_atualizacao", nullable = true)
 	private LocalDateTime dataAtualizacao;
+
+    public Usuarios() {}
 }
