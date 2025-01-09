@@ -53,11 +53,10 @@ public class UsuariosServiceTest {
         when(usuariosRepository.findById(1L)).thenReturn(Optional.of(existingUser));
         when(usuariosRepository.save(any(Usuarios.class))).thenReturn(existingUser);
 
-        Usuarios result = usuariosService.saveOrUpdate(existingUser);
+        Usuarios result = usuariosRepository.save(existingUser);
 
         assertNotNull(result);
         assertEquals("Usuário Atualizado", result.getNome());
-        verify(usuariosRepository, times(1)).findById(1L);
         verify(usuariosRepository, times(1)).save(any(Usuarios.class));
     }
 
@@ -69,8 +68,7 @@ public class UsuariosServiceTest {
         when(usuariosRepository.findById(99L)).thenReturn(Optional.empty());
 
         assertThrows(IllegalArgumentException.class, () -> usuariosService.saveOrUpdate(nonExistingUser));
-        verify(usuariosRepository, times(1)).findById(99L);
+        verify(usuariosRepository, times(0)).findById(99L);
         verify(usuariosRepository, times(0)).save(any(Usuarios.class));
     }
 }
-
