@@ -32,7 +32,7 @@ public class UsuariosController {
     }
 
     @PostMapping("save")
-    public ResponseEntity<Object> saveOrUpdate(@Valid @RequestBody Usuarios usuario) {
+    public ResponseEntity<Object> saveOrUpdate(@Valid @RequestBody Usuarios usuario) throws Exception {
         usuariosService.saveOrUpdate(usuario);
         return ResponseEntity.noContent().build();
     }

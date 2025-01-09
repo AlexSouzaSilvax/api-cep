@@ -20,7 +20,7 @@ public class UsuariosService {
 
     @Transactional
     @SuppressWarnings("UseSpecificCatch")
-    public Usuarios saveOrUpdate(Usuarios usuario) {
+    public Usuarios saveOrUpdate(Usuarios usuario) throws Exception {
 
         String msgAcaoMetodo = "";
 
@@ -48,7 +48,7 @@ public class UsuariosService {
             return usuariosRepository.save(usuario);
 
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao " + msgAcaoMetodo + " o usuário. " + e.getMessage(), e);
+            throw new Exception("Erro ao " + msgAcaoMetodo + " o usuário. " + e.getMessage(), e);
         }
 
     }
