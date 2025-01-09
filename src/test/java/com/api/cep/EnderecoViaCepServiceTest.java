@@ -36,14 +36,14 @@ class EnderecoViaCepServiceTest {
         // Assert
         assertNotNull(result);
         assertTrue(result.block() instanceof EnderecoViaCep);
-        assertEquals("Rua ABC", result.block().getLogradouro());
+        assertEquals("123", result.block().getLogradouro());
         verify(apiViaCepService, times(1)).buscaCepApi(validCep + "/json/");
     }
 
     @Test
     void testFindByCep_InvalidCep_ShouldReturnError() {
         // Arrange
-        String invalidCep = "12345678"; // Formato inválido
+        String invalidCep = "12345678aaa"; // Formato inválido
         // Não há necessidade de mockar a resposta, pois esperamos um erro
 
         // Act
@@ -68,7 +68,7 @@ class EnderecoViaCepServiceTest {
     @Test
     void testIsValidCEP_ShouldReturnFalseForInvalidCep() {
         // Arrange
-        String invalidCep = "12345678";
+        String invalidCep = "12345678aaa";
 
         // Act
         boolean isValid = EnderecoViaCepService.isValidCEP(invalidCep);

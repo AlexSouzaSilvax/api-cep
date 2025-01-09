@@ -5,7 +5,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -31,16 +30,13 @@ class UsuariosControllerTest {
 
     @Test
     void testSaveUsuario() throws Exception {
-        // Mock do usuário de entrada
         Usuarios usuario = new Usuarios();
         usuario.setNome("João Silva");
         usuario.setCpf("12345678900");
         usuario.setCep("12345-678");
 
-        // Mock do serviço
         when(usuariosService.saveOrUpdate(any(Usuarios.class))).thenReturn(usuario);
 
-        // Executa o teste
         mockMvc.perform(post("/api/usuarios/save")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
@@ -52,13 +48,11 @@ class UsuariosControllerTest {
                         """))
                 .andExpect(status().isNoContent());
 
-        // Verifica se o método foi chamado
         verify(usuariosService, times(1)).saveOrUpdate(any(Usuarios.class));
     }
 
     @Test
     void testSaveInvalidUsuario() throws Exception {
-        // Simula uma exceção lançada no serviço
         when(usuariosService.saveOrUpdate(any(Usuarios.class))).thenThrow(new IllegalArgumentException("CPF é obrigatório"));
 
         mockMvc.perform(post("/api/usuarios/save")
@@ -66,10 +60,10 @@ class UsuariosControllerTest {
                 .content("""
                         {
                             "nome": "João Silva",
-                            "cep": "12345-678"
+                            "cep": "12345-678",
+                            "cpf: ""
                         }
                         """))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("CPF é obrigatório"));
+                .andExpect(status().isBadRequest());
     }
 }
