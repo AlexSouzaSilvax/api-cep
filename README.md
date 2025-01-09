@@ -37,7 +37,6 @@ A documentação da API está disponível através do Swagger na seguinte URL: (
 
 
 ```bash
-# executar
     mvn spring-boot:run
 ```
 
@@ -72,7 +71,7 @@ Se você deseja contribuir com este projeto, sinta-se à vontade para abrir um p
 
 Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato.
 
-Email: alexsouzasilvax@gmail.com
+Email alexsouzasilvax@gmail.com
 
 ---
 
