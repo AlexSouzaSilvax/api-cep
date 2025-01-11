@@ -1,18 +1,17 @@
 package com.api.cep;
 
-import static org.mockito.Mockito.any;
+import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.api.cep.controller.UsuariosController;
 import com.api.cep.entity.Usuarios;
@@ -29,15 +28,15 @@ class UsuariosControllerTest {
     private UsuariosService usuariosService;
 
     @Test
-    void testSaveUsuario() throws Exception {
+    void testCreateUsuario() throws Exception {
         Usuarios usuario = new Usuarios();
         usuario.setNome("João Silva");
         usuario.setCpf("12345678900");
         usuario.setCep("12345-678");
 
-        when(usuariosService.saveOrUpdate(any(Usuarios.class))).thenReturn(usuario);
+        when(usuariosService.createOrUpdate(any(Usuarios.class))).thenReturn(usuario);
 
-        mockMvc.perform(post("/api/usuarios/save")
+        mockMvc.perform(post("/api/usuarios/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -48,14 +47,14 @@ class UsuariosControllerTest {
                         """))
                 .andExpect(status().isNoContent());
 
-        verify(usuariosService, times(1)).saveOrUpdate(any(Usuarios.class));
+        verify(usuariosService, times(1)).createOrUpdate(any(Usuarios.class));
     }
 
     @Test
-    void testSaveInvalidUsuario() throws Exception {
-        when(usuariosService.saveOrUpdate(any(Usuarios.class))).thenThrow(new IllegalArgumentException("CPF é obrigatório"));
+    void testCreateInvalidUsuario() throws Exception {
+        when(usuariosService.createOrUpdate(any(Usuarios.class))).thenThrow(new IllegalArgumentException("CPF é obrigatório"));
 
-        mockMvc.perform(post("/api/usuarios/save")
+        mockMvc.perform(post("/api/usuarios/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {

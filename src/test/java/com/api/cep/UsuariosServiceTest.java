@@ -1,20 +1,23 @@
 package com.api.cep;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 import com.api.cep.entity.Usuarios;
 import com.api.cep.repository.UsuariosRepository;
 import com.api.cep.service.UsuariosService;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
 
 public class UsuariosServiceTest {
 
@@ -30,14 +33,14 @@ public class UsuariosServiceTest {
     }
 
     @Test
-    void testSaveOrUpdate_NewUser() throws Exception {
+    void testCreateOrUpdate_NewUser() throws Exception {
         Usuarios usuario = new Usuarios();
         usuario.setNome("Novo Usuário");
         usuario.setCpf("12345678901");
 
         when(usuariosRepository.save(any(Usuarios.class))).thenReturn(usuario);
 
-        Usuarios result = usuariosService.saveOrUpdate(usuario);
+        Usuarios result = usuariosService.createOrUpdate(usuario);
 
         assertNotNull(result);
         assertEquals("Novo Usuário", result.getNome());
@@ -45,7 +48,7 @@ public class UsuariosServiceTest {
     }
 
     @Test
-    void testSaveOrUpdate_UpdateExistingUser() {
+    void testCreateOrUpdate_UpdateExistingUser() {
         Usuarios existingUser = new Usuarios();
         existingUser.setId(1L);
         existingUser.setNome("Usuário Atualizado");
@@ -62,13 +65,13 @@ public class UsuariosServiceTest {
     }
 
     @Test
-    void testSaveOrUpdate_UserNotFound() {
+    void testCreateOrUpdate_UserNotFound() {
         Usuarios nonExistingUser = new Usuarios();
         nonExistingUser.setId(99L);
 
         when(usuariosRepository.findById(99L)).thenReturn(Optional.empty());
 
-        assertThrows(Exception.class, () -> usuariosService.saveOrUpdate(nonExistingUser));
+        assertThrows(Exception.class, () -> usuariosService.createOrUpdate(nonExistingUser));
         verify(usuariosRepository, times(0)).findById(99L);
         verify(usuariosRepository, times(0)).save(any(Usuarios.class));
     }

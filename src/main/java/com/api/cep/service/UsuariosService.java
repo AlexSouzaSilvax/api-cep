@@ -20,7 +20,7 @@ public class UsuariosService {
 
     @Transactional
     @SuppressWarnings("UseSpecificCatch")
-    public Usuarios saveOrUpdate(Usuarios usuario) throws Exception {
+    public Usuarios createOrUpdate(Usuarios usuario) throws Exception {
 
         String msgAcaoMetodo = "";
 
@@ -39,7 +39,6 @@ public class UsuariosService {
                 usuario.setDataAtualizacao(LocalDateTime.now());
 
             } else {
-
                 msgAcaoMetodo = "salvar";
 
                 usuario.setDataCriacao(LocalDateTime.now());
@@ -63,6 +62,10 @@ public class UsuariosService {
             throw new IllegalArgumentException("Usuário não existente: " + id);
         }
         usuariosRepository.deleteById(id);
+    }
+
+    public boolean existsByCpf(String cpf) {
+        return usuariosRepository.existsByCpf(cpf);
     }
 
 }
