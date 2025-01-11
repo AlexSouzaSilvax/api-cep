@@ -18,34 +18,36 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Usuarios {
-    
+
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String nome;
 
     @Column(nullable = false, unique = true)
     private String cpf;
-    
+
     @Column(nullable = false)
     private String cep;
-    
+
     private String logradouro;
-    
+
     private String bairro;
-    
+
     private String cidade;
 
     private String estado;
 
-	@Column(name = "data_criacao", nullable = false, updatable = false)
-	@JsonProperty("data_criacao")
-	private LocalDateTime dataCriacao;
+    @Column(name = "data_criacao", nullable = false, updatable = false)
+    @JsonProperty("data_criacao")
+    private LocalDateTime dataCriacao;
 
-	@Column(name = "data_atualizacao", nullable = true)
-	private LocalDateTime dataAtualizacao;
+    @Column(name = "data_atualizacao", nullable = true)
+    @JsonProperty("data_atualizacao")
+    private LocalDateTime dataAtualizacao;
 
-    public Usuarios() {}
+    public Usuarios() {
+    }
 }
