@@ -45,14 +45,15 @@ class UsuariosControllerTest {
                             "cep": "12345-678"
                         }
                         """))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
 
         verify(usuariosService, times(1)).createOrUpdate(any(Usuarios.class));
     }
 
     @Test
     void testCreateInvalidUsuario() throws Exception {
-        when(usuariosService.createOrUpdate(any(Usuarios.class))).thenThrow(new IllegalArgumentException("CPF é obrigatório"));
+        when(usuariosService.createOrUpdate(any(Usuarios.class)))
+                .thenThrow(new IllegalArgumentException("CPF é obrigatório"));
 
         mockMvc.perform(post("/api/usuarios/create")
                 .contentType(MediaType.APPLICATION_JSON)
