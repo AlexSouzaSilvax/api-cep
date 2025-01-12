@@ -22,7 +22,7 @@ public class UsuariosService {
     @SuppressWarnings("UseSpecificCatch")
     public Usuarios createOrUpdate(Usuarios usuario) throws Exception {
 
-        String msgAcaoMetodo = "";
+        String msgAcaoMetodo = "salvar";
 
         try {
 
@@ -39,8 +39,6 @@ public class UsuariosService {
                 usuario.setDataAtualizacao(LocalDateTime.now());
 
             } else {
-                msgAcaoMetodo = "salvar";
-
                 usuario.setDataCriacao(LocalDateTime.now());
             }
 

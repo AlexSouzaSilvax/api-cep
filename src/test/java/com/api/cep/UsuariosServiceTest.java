@@ -71,7 +71,11 @@ public class UsuariosServiceTest {
 
         when(usuariosRepository.findById(99L)).thenReturn(Optional.empty());
 
-        assertThrows(Exception.class, () -> usuariosService.createOrUpdate(nonExistingUser));
+        Exception exception = assertThrows(Exception.class,
+                () -> usuariosService.createOrUpdate(nonExistingUser));
+
+        assertEquals("Erro ao atualizar o usuário. Usuário não existente: 99", exception.getMessage());
+
         verify(usuariosRepository, times(0)).findById(99L);
         verify(usuariosRepository, times(0)).save(any(Usuarios.class));
     }
