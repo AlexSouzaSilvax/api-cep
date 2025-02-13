@@ -84,6 +84,8 @@ CEP_DATABASE_PASSWORD=sua_senha
 URL_API_EXTERNO_VIA_CEP=https://viacep.com.br/ws/
 ```
 
+<br>
+
 ### ⚙️ **Instalar Dependências**
 
 Dentro da pasta do projeto, execute:
@@ -94,6 +96,8 @@ ou, se quiser ignorar os testes:
 ```
 mvn clean install -DskipTests
 ```
+
+<br>
 
 ### 🛠️ Executar o Projeto
 
@@ -106,6 +110,8 @@ Para rodar a API localmente, use o seguinte comando:
 ```bash
     mvn spring-boot:run
 ```
+
+<br>
 
 ### 🌐 **Acessar a Aplicação**
 O projeto estará rodando em:
